@@ -9,4 +9,5 @@ public class CafeConstant {
     public static final String ACTIVE = "Active";
     public static final String INACTIVE = "Inactive";
     public static final String USER = "USER";
+    public static final String INVALID_CREDENTIALS = "Invalid Credentials";
 }

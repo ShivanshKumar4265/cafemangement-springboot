@@ -35,4 +35,12 @@ public class CustomerDetailsService implements UserDetailsService {
     public User getUserDetails() {
         return userDetails;
     }
+
+    /**
+     *    public User getUserDetails() {
+     *         User user = userDetails;
+     *         user.setPassword(null);
+     *         return user;
+     *     }
+     */
 }

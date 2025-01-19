@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -54,13 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(request -> new CorsConfiguration().
-                        applyPermitDefaultValues()).
-                and().
+        http.cors().configurationSource(request -> new CorsConfiguration()
+                        .applyPermitDefaultValues())
+                .and().
                 csrf().
                 disable().
                 authorizeRequests().
-                antMatchers("/users/sign_in", "/users/sign_up", "users/forgot_password").
+                antMatchers("/users/sign_in", "/users/sign_up","users/forgot_password").
                 permitAll().
                 anyRequest().
                 authenticated().
