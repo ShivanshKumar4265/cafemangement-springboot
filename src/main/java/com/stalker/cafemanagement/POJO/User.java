@@ -1,10 +1,11 @@
 package com.stalker.cafemanagement.POJO;
 
-import jakarta.persistence.*;
-import lombok.Data;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.NamedQuery;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user")
+@Table(name = "users")
 public class User implements Serializable {
     private static final long serialVersionUID = 2L;
 
