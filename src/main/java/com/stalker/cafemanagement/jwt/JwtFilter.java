@@ -30,9 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest,
-                                    HttpServletResponse httpServletResponse,
-                                    FilterChain filterChain
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain
     ) throws ServletException, IOException {
             if(httpServletRequest.getServletPath().matches("/users/sign_in|/users/sign_up|users/forgot_password")){
                 //no token required

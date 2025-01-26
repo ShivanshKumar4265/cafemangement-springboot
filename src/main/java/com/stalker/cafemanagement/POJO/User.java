@@ -1,6 +1,7 @@
 package com.stalker.cafemanagement.POJO;
 
 
+import jdk.jfr.Name;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NamedQuery;
@@ -10,6 +11,11 @@ import java.io.Serializable;
 
 
 @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+
+@NamedQuery(
+        name = "User.getAllUsers",
+        query = "SELECT new com.stalker.cafemanagement.wrapper.UserWrapper(u.id, u.name, u.email, u.contactNumber, u.status) FROM User u"
+)
 
 @Entity
 @DynamicInsert
