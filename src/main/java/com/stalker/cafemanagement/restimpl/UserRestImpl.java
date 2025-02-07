@@ -43,5 +43,14 @@ public class UserRestImpl implements UserRest {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public ResponseEntity<String> updateUser(Map<String, String> requestMap) {
+        try {
+            return userService.updateUser(requestMap);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

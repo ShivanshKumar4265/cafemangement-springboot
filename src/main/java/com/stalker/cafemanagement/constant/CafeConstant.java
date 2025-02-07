@@ -10,4 +10,6 @@ public class CafeConstant {
     public static final String INACTIVE = "Inactive";
     public static final String USER = "USER";
     public static final String INVALID_CREDENTIALS = "Invalid Credentials";
+    public static final String UNAUTHORIZED_ACCESS = "Unauthorized Access";
+    public static final String USER_DOESNT_EXIST = "User Doesn't Exist";
 }

@@ -18,10 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -97,7 +94,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<UserWrapper>> getUser() {
         try {
-            System.out.println("inside get user "+jwtFilter.isAdmin());
+            System.out.println("inside get user " + jwtFilter.isAdmin());
             if (jwtFilter.isAdmin()) {
                 return new ResponseEntity<>(userDao.getAllUsers(), HttpStatus.OK);
             } else {
@@ -108,6 +105,26 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             throw new RuntimeException("Error occurred while fetching users", e);
         }
+    }
+
+    @Override
+    public ResponseEntity<String> updateUser(Map<String, String> requestMap) {
+        try {
+            if (jwtFilter.isAdmin()) {
+                Optional<User> optionalUser = userDao.findById(Integer.parseInt(requestMap.get("id")));
+                if (optionalUser.isEmpty()) {
+                    CafeUtils.getResponseEntity(CafeConstant.USER_DOESNT_EXIST, HttpStatus.BAD_REQUEST);
+                } else {
+                    userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
+                    return CafeUtils.getResponseEntity("User Updated Successfully", HttpStatus.OK);
+                }
+            } else {
+                CafeUtils.getResponseEntity(CafeConstant.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return CafeUtils.getResponseEntity(CafeConstant.SOME_THING_WENT_WRONG, HttpStatus.UNAUTHORIZED);
     }
 
 
