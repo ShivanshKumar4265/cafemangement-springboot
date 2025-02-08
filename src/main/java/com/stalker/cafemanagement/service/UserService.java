@@ -10,5 +10,7 @@ public interface UserService {
     public ResponseEntity<String> signUp(Map<String, String> requestMap);
     public ResponseEntity<String> signIn(Map<String, String> requestMap);
     public ResponseEntity<String> updateUser(Map<String, String> requestMap);
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap);
+    public ResponseEntity<Map<String, Object>> forgotPassword(Map<String, String> requestMap);
     public ResponseEntity<List<UserWrapper>> getUser();
 }

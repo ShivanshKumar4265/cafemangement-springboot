@@ -52,5 +52,23 @@ public class UserRestImpl implements UserRest {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+        try {
+            return userService.changePassword(requestMap);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> forgotPassword(Map<String, String> requestMap) {
+        try {
+            return userService.forgotPassword(requestMap);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

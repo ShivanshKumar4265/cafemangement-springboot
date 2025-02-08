@@ -127,6 +127,53 @@ public class UserServiceImpl implements UserService {
         return CafeUtils.getResponseEntity(CafeConstant.SOME_THING_WENT_WRONG, HttpStatus.UNAUTHORIZED);
     }
 
+    @Override
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+        try {
+
+            Optional<User> optionalUser = userDao.findById(Integer.parseInt(requestMap.get("id")));
+            if (optionalUser.isEmpty()) {
+                CafeUtils.getResponseEntity(CafeConstant.USER_DOESNT_EXIST, HttpStatus.BAD_REQUEST);
+            } else {
+                String password = optionalUser.get().getPassword();
+                if (password.equals(requestMap.get("old_password"))) {
+                    userDao.updatePassword(Integer.parseInt(requestMap.get("id")), requestMap.get("old_password"), requestMap.get("new_password"));
+                    return CafeUtils.getResponseEntity("Password Updated Successfully", HttpStatus.OK);
+                } else {
+                    return CafeUtils.getResponseEntity("Old Password is Incorrect", HttpStatus.UNAUTHORIZED);
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return CafeUtils.getResponseEntity(CafeConstant.SOME_THING_WENT_WRONG, HttpStatus.UNAUTHORIZED);
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> forgotPassword(Map<String, String> requestMap) {
+        try {
+            User user = userDao.findByEmail(requestMap.get("email"));
+            Map<String, Object> response = new LinkedHashMap<>();
+
+            if (user == null) {
+                response.put("status", "failure");
+                response.put("message", "User does not exist.");
+                response.put("data", null);
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            } else {
+                response.put("status", "success");
+                response.put("message", "Password forgotten.");
+                response.put("data", user); // This will include the user data
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     private boolean validateSignUpRequest(Map<String, String> requestMap) {
         return requestMap.containsKey("name") && requestMap.containsKey("contactNumber") && requestMap.containsKey("email") && requestMap.containsKey("password");
